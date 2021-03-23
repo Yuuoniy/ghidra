@@ -206,6 +206,14 @@ void EmitXml::tagFuncName(const char *ptr,syntax_highlight hl,
   *s << "</funcname>";
 }
 
+/// \brief Emit a function noreturn identifier
+///
+/// An identifier string representing  noreturn information of the function is emitted
+void EmitXml::tagNoreturn(void)
+{
+  *s << "<noreturn " << highlight[(int4)no_color] << '>' << " noreturn </noreturn>";
+}
+
 /// \brief Emit a data-type identifier
 ///
 /// A string representing the name of a data-type, as appropriate for the source language
@@ -410,6 +418,9 @@ void TokenSplit::print(EmitXml *emit) const
     break;
   case fnam_t:	// tagFuncName
     emit->tagFuncName(tok.c_str(),hl,ptr_second.fd,op);
+    break;
+  case noret_t:
+    emit->tagNoreturn();
     break;
   case type_t:	// tagType
     emit->tagType(tok.c_str(),hl,ptr_second.ct);
@@ -1038,6 +1049,15 @@ void EmitPrettyPrint::tagFuncName(const char *ptr,syntax_highlight hl,const Func
   tok.tagFuncName(ptr,hl,fd,op);
   scan();
 }
+
+void EmitPrettyPrint::tagNoreturn(void)
+{
+  checkstring();
+  TokenSplit &tok( tokqueue.push() );
+  tok.tagNoreturn();
+  scan();
+}
+
 
 void EmitPrettyPrint::tagType(const char *ptr,syntax_highlight hl,const Datatype *ct)
 

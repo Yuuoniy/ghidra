@@ -117,6 +117,7 @@ public:
 			    const Varnode *vn,const PcodeOp *op);
   virtual void tagOp(const char *ptr,syntax_highlight hl,const PcodeOp *op);
   virtual void tagFuncName(const char *ptr,syntax_highlight hl,const Funcdata *fd,const PcodeOp *op);
+  virtual void tagNoreturn(void);
   virtual void tagType(const char *ptr,syntax_highlight hl,const Datatype *ct);
   virtual void tagField(const char *ptr,syntax_highlight hl,const Datatype *ct,int4 off);
   virtual void tagComment(const char *ptr,syntax_highlight hl,const AddrSpace *spc,uintb off);
@@ -247,6 +248,8 @@ public:
     *s << ptr; }
   virtual void tagFuncName(const char *ptr,syntax_highlight hl,const Funcdata *fd,const PcodeOp *op) {
     *s << ptr; }
+  virtual void tagNoreturn(void) {
+    *s << " noreturn ";}
   virtual void tagType(const char *ptr,syntax_highlight hl,const Datatype *ct) {
     *s << ptr; }
   virtual void tagField(const char *ptr,syntax_highlight hl,const Datatype *ct,int4 off) {
@@ -313,6 +316,7 @@ public:
     vari_t,		///< A variable identifier
     op_t,		///< An operator
     fnam_t,		///< A function identifier
+    noret_t,  ///< A function noreturn identifier
     type_t,		///< A data-type identifier
     field_t,		///< A field name for a structured data-type
     comm_t,		///< Part of a comment block
@@ -467,6 +471,10 @@ public:
   void tagFuncName(const char *ptr,EmitXml::syntax_highlight h,const Funcdata *f,const PcodeOp *o) {
     tok = ptr; size = tok.size();
     tagtype=fnam_t; delimtype=tokenstring; hl=h; ptr_second.fd=f; op=o; }
+
+  /// \brief Create a function noreturn identifiertoken
+  void tagNoreturn(void) {
+    tagtype=noret_t; delimtype=tokenstring; }
 
   /// \brief Create a data-type identifier token
   ///
@@ -751,6 +759,7 @@ public:
 			   const Varnode *vn,const PcodeOp *op);
   virtual void tagOp(const char *ptr,syntax_highlight hl,const PcodeOp *op);
   virtual void tagFuncName(const char *ptr,syntax_highlight hl,const Funcdata *fd,const PcodeOp *op);
+  virtual void tagNoreturn(void);
   virtual void tagType(const char *ptr,syntax_highlight hl,const Datatype *ct);
   virtual void tagField(const char *ptr,syntax_highlight hl,const Datatype *ct,int4 off);
   virtual void tagComment(const char *ptr,syntax_highlight hl,
