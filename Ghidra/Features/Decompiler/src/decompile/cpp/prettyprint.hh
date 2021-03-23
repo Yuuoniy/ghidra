@@ -316,7 +316,7 @@ public:
     vari_t,		///< A variable identifier
     op_t,		///< An operator
     fnam_t,		///< A function identifier
-    noret_t,  ///< A function noreturn identifier
+    noret_t,		///< A function noreturn identifier
     type_t,		///< A data-type identifier
     field_t,		///< A field name for a structured data-type
     comm_t,		///< Part of a comment block

@@ -2286,7 +2286,7 @@ bool PrintC::emitScopeVarDecls(const Scope *scope,int4 cat)
   return notempty;
 }
 
-void PrintC::emitFunctionDeclaration(const Funcdata *fd) 
+void PrintC::emitFunctionDeclaration(const Funcdata *fd)
 {
   const FuncProto *proto = &fd->getFuncProto();
   int4 id = emit->beginFuncProto();
@@ -2367,7 +2367,7 @@ void PrintC::docFunction(const Funcdata *fd)
     int4 id1 = emit->beginFunction(fd);
     emitCommentFuncHeader(fd);
     emit->tagLine();
-    emitFunctionDeclaration(fd);	// Causes us to enter function's scope 
+    emitFunctionDeclaration(fd);	// Causes us to enter function's scope
     emit->tagLine();
     if (option_newline_after_prototype) {
       emit->tagLine();
